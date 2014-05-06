@@ -28,14 +28,15 @@
   '("lib"
     "lib/http-emacs"
     "ruby-mode"
-    "slime/slime"
-    "clojure-mode"
+    ;;"slime/slime"
+    ;;"clojure-mode"
     ;; "distel/elisp"
-    "swank-clojure"
+    ;;"swank-clojure"
     "scala-mode"
     "yasnippet"
     "lib/autocomplete/"
-    "lib/ac-slime/")
+    ;;"lib/ac-slime/"
+    )
   "List of my customization module directories.")
 
 ;; add those all to the lib path
@@ -112,8 +113,8 @@ extensions (patterns). Eg:
 (krb-compile-el-files-in-library "yasnippet")
 (krb-compile-el-files-in-library "scala-mode")
 (krb-compile-el-files-in-library "ruby-mode")
-(krb-compile-el-files-in-library "slime/slime")
-(krb-compile-el-files-in-library "clojure-mode")
+;;(krb-compile-el-files-in-library "slime/slime")
+;;(krb-compile-el-files-in-library "clojure-mode")
 
 ;; now that many of the libs are byte-compiled, pull in all the ones we want to use
 (require 'highlight-parentheses)
@@ -122,8 +123,8 @@ extensions (patterns). Eg:
 (require 'saveplace)
 (require 'ruby-mode)
 (require 'inf-ruby)
-(require 'slime)
-(require 'clojure-mode)
+;;(require 'slime)
+;;(require 'clojure-mode)
 (require 'krb-clojure)
 (require 'krb-ruby)
 ;; (require 'emacsd-tile)
@@ -372,25 +373,25 @@ the backing files."
 
 (krb-push-file-ext-and-mode-binding 'shell-script-mode "\\.env$")
 
-(eval-after-load "slime"
-  '(progn
-     (slime-setup '(slime-repl))
-     ;; see: https://github.com/technomancy/swank-clojure/issues/57
-     (setq slime-net-coding-system 'utf-8-unix)))
+;; (eval-after-load "slime"
+;;   '(progn
+;;      (slime-setup '(slime-repl))
+;;      ;; see: https://github.com/technomancy/swank-clojure/issues/57
+;;      (setq slime-net-coding-system 'utf-8-unix)))
 
 (add-hook 'paredit-mode-hook
           (lambda ()
             (local-set-key "\M-k" 'kill-sexp)))
 
-(setq swank-clojure-binary "clojure")
-(require 'swank-clojure-autoload)
+;;(setq swank-clojure-binary "clojure")
+;;(require 'swank-clojure-autoload)
 
 (defun krb-set-clojure-bindings ()
   (interactive)
   nil)
 
-(slime-setup)
-(krb-push-file-ext-and-mode-binding 'clojure-mode "\\.clj$")
+;;(slime-setup)
+;;(krb-push-file-ext-and-mode-binding 'clojure-mode "\\.clj$")
 
 (add-hook
  'paredit-mode-hook
@@ -407,8 +408,8 @@ the backing files."
   (interactive)
   (message "krb-swank-clojure-init"))
 
-(add-to-list 'slime-lisp-implementations
-             '(sbcl ("sbcl")) t)
+;; (add-to-list 'slime-lisp-implementations
+;;              '(sbcl ("sbcl")) t)
 
 (add-hook 'lisp-mode-hook
           (lambda ()
@@ -449,10 +450,10 @@ the backing files."
 (ac-help 'interactive)
 
 ;;hook slime into autocomplete
-(krb-compile-el-files-in-library "lib/ac-slime")
-(require 'ac-slime)
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
-(setq ac-sources (cons 'ac-source-slime-simple ac-sources))
+;; (krb-compile-el-files-in-library "lib/ac-slime")
+;; (require 'ac-slime)
+;; (add-hook 'slime-mode-hook 'set-up-slime-ac)
+;; (setq ac-sources (cons 'ac-source-slime-simple ac-sources))
 
 
 
@@ -755,3 +756,22 @@ the backing files."
  '(mumamo-background-chunk-submode1 ((((class color) (background dark)) (:background "black")))))
 ;;(put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
+
+
+;; Attempt to install Cider stuff
+(defun initialize-package-manager ()
+  (require 'package)
+  (add-to-list 'package-archives
+               '("marmalade" .
+                 "http://marmalade-repo.org/packages/"))
+  (package-initialize)
+  (package-refresh-contents))
+
+(defun ensure-package (pkg)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
+
+(initialize-package-manager)
+(ensure-package 'clojure-mode)
+(ensure-package 'cider)
