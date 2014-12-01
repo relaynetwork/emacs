@@ -755,3 +755,9 @@ the backing files."
  '(mumamo-background-chunk-submode1 ((((class color) (background dark)) (:background "black")))))
 ;;(put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
+
+(if (file-exists-p "/home/relay/projects/dev-utils/instago/software/go/misc/emacs/go-mode-load.el")
+    (progn
+      (add-to-list 'load-path "/home/relay/projects/dev-utils/instago/software/go/misc/emacs" t)
+      (require 'go-mode-load)))
