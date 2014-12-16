@@ -724,6 +724,21 @@ the pre-existing package statements.
          (goto-char (point-min))
          (grep-mode))))))
 
+(defun krb-clojure-strip-arg-metadata-from-list (args-list)
+  (cond
+   ((null args-list)
+    nil)
+   ((string/starts-with (car args-list) "^")
+    (krb-clojure-strip-arg-metadata-from-list (cdr args-list)))
+   ((string/starts-with (car args-list) ":-")
+    (krb-clojure-strip-arg-metadata-from-list (cddr args-list)))
+   (t
+    (cons (car args-list)
+          (krb-clojure-strip-arg-metadata-from-list (cdr args-list))))))
+
+(defun krb-clojure-strip-arg-metadata (args-string)
+  (krb-clojure-strip-arg-metadata-from-list (split-string args-string " ")))
+
 (defun krb-clojure-get-current-fn-args ()
   (interactive)
   (save-excursion
@@ -734,14 +749,7 @@ the pre-existing package statements.
       (forward-sexp 1)
       (backward-char 1)
       ;; strip meta-data from the list
-      (remove-if
-       (lambda (elt)
-         (or
-          (string/starts-with (format "%s" elt) "^")
-          (equal ":-" elt)))
-       (split-string
-        (buffer-substring start (point))
-        " ")))))
+      (krb-clojure-strip-arg-metadata (buffer-substring start (point))))))
 
 (defun string/starts-with (s begins)
   "returns non-nil if string S starts with BEGINS.  Else nil."
