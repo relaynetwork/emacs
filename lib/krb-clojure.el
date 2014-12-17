@@ -736,8 +736,14 @@ the pre-existing package statements.
     (cons (car args-list)
           (krb-clojure-strip-arg-metadata-from-list (cdr args-list))))))
 
+(defun krb-clojure-args-string->string-list (s)
+  (mapcar
+   '(lambda (e)
+      (format "%s" e))
+   (first (read-from-string (concat "(" s ")")))))
+
 (defun krb-clojure-strip-arg-metadata (args-string)
-  (krb-clojure-strip-arg-metadata-from-list (split-string args-string " ")))
+  (krb-clojure-strip-arg-metadata-from-list (krb-clojure-args-string->string-list args-string)))
 
 (defun krb-clojure-get-current-fn-args ()
   (interactive)
