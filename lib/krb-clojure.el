@@ -913,6 +913,17 @@ the pre-existing package statements.
   (interactive)
   (slime-inspect krb-clojure-replay-inspect-expression-expr))
 
+(defun krb-string-trim (s)
+  (let* ((test-str s)
+         (test-str (if (string-match "[ \t]*$" test-str)
+                       (replace-match "" nil nil test-str)
+                     test-str))
+         (test-str (if (string-match "^[ \t]*" test-str)
+                       (replace-match "" nil nil test-str)
+                     test-str)))
+    test-str))
+
+
 (defun krb-clojure-interactive-def-expression (var-name expression)
   (interactive
    (list
@@ -922,22 +933,22 @@ the pre-existing package statements.
      ;; initial-input
      (save-excursion
        (backward-sexp 1)
-       (slime-last-expression))
+       (krb-string-trim (slime-last-expression)))
      ;; history
      'krb-clojure-interactive-def-expression-hist
      ;; default-value
-     "chicken"
+     ""
      ;; inherit-input-method
      t)
     (read-string
      ;; prompt
-     (concat "Expression: " (slime-last-expression) ": ")
+     (concat "Expression: " (krb-string-trim (slime-last-expression)) ": ")
      ;; initial-input
-     (slime-last-expression)
+     (krb-string-trim (slime-last-expression))
      ;; history
      'krb-clojure-set-replay-inspect-expression-hist
      ;; default-value
-     (slime-last-expression)
+     (krb-string-trim (slime-last-expression))
      ;; inherit-input-method
      t)))
   (slime-interactive-eval (concat "(def " var-name " " expression ")")))
@@ -1002,3 +1013,10 @@ the pre-existing package statements.
 
 (provide 'krb-clojure)
 ;; end of krb-clojure.el
+
+'(
+
+  (krb-string-trim "foof  ")
+
+
+  )
