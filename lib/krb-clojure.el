@@ -846,7 +846,6 @@ the pre-existing package statements.
       (save-buffer)
       (slime-eval-defun))))
 
-
 (defun krb-clojure-def-var ()
   (interactive)
   (save-excursion
@@ -953,6 +952,32 @@ the pre-existing package statements.
      t)))
   (slime-interactive-eval (concat "(def " var-name " " expression ")")))
 
+(defun rn-symbol-to-def ()
+  (interactive)
+  (beginning-of-line)
+  (yas/expand)
+  (paredit-kill)
+  (paredit-open-round)
+  (insert "def ")
+  (yank)
+  (insert " ")
+  (yank)
+  (beginning-of-line)
+  (next-line)
+  (slime-eval-defun))
+
+(defun rn-clear-defs-from-buffer ()
+  (interactive)
+  (save-excursion
+    (beginning-of-buffer)
+    (while (search-forward-regexp " (def " nil t)
+      (beginning-of-line)
+      (kill-line)
+      (kill-line))
+    (save-buffer)))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key "\C-c\C-s\C-t" 'krb-clj-open-stacktrace-line)
 (global-set-key "\C-crfn" 'krb-clj-fixup-ns)
@@ -988,6 +1013,8 @@ the pre-existing package statements.
         (define-key map "da"   'krb-clojure-fn-args-to-defs)
         (define-key map "dv"   'krb-clojure-def-var)
 
+        (define-key map "cd"   'rn-clear-defs-from-buffer)
+
 
         ;; (define-key map "tr"   'krb-clj-test-run-test-for-fn)
         ;; jump between test-fn and current-fn
@@ -1009,7 +1036,8 @@ the pre-existing package statements.
   (local-set-key (kbd "C-<f6>") 'krb-clojure-set-replay-expression)
   (local-set-key (kbd "M-<f6>") 'krb-clojure-interactive-def-expression)
   (local-set-key [f7]           'krb-clojure-replay-inspect-expression)
-  (local-set-key (kbd "C-<f7>") 'krb-clojure-set-replay-inspect-expression))
+  (local-set-key (kbd "C-<f7>") 'krb-clojure-set-replay-inspect-expression)
+  (local-set-key [f12]          'rn-symbol-to-def))
 
 (provide 'krb-clojure)
 ;; end of krb-clojure.el

@@ -682,7 +682,6 @@ the backing files."
 (set-face-background 'vertical-border "gray10")
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (defalias 'yes-or-no-p 'y-or-n-p)
-(defun timvisher/turn-on-eldoc () (eldoc-mode t))
 (add-hook 'lisp-mode-hook 'timvisher/turn-on-eldoc)
 (global-set-key (kbd "C-c b i") 'ibuffer-other-window)
 (global-set-key (kbd "C-c b b") 'bury-buffer)
@@ -718,18 +717,15 @@ the backing files."
 ;;(defalias 'csr 'cua-set-rectangle-mark)
 ;;(global-set-key (kbd "C-c r SPC") 'cua-set-rectangle-mark)
 
-(defun timvisher/make-read-only ()
-  (toggle-read-only 1))
-
 (autoload 'archive-extract-hooks "arc-mode")
 
 (add-hook 'archive-extract-hooks 'timvisher/make-read-only)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(apropos-do-all t)
  '(dired-dwim-target t)
  '(dired-recursive-copies (quote always))
@@ -742,10 +738,10 @@ the backing files."
  '(slime-net-coding-system (quote utf-8-unix))
  '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(ediff-even-diff-A ((((class color) (background dark)) (:background "dark green"))))
  '(ediff-even-diff-B ((((class color) (background dark)) (:background "dark red"))))
  '(ediff-odd-diff-A ((((class color) (background dark)) (:background "dark green"))))
