@@ -682,7 +682,6 @@ the backing files."
 (set-face-background 'vertical-border "gray10")
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (defalias 'yes-or-no-p 'y-or-n-p)
-(add-hook 'lisp-mode-hook 'timvisher/turn-on-eldoc)
 (global-set-key (kbd "C-c b i") 'ibuffer-other-window)
 (global-set-key (kbd "C-c b b") 'bury-buffer)
 (global-set-key (kbd "C-c b r") 'revert-buffer)
@@ -717,9 +716,14 @@ the backing files."
 ;;(defalias 'csr 'cua-set-rectangle-mark)
 ;;(global-set-key (kbd "C-c r SPC") 'cua-set-rectangle-mark)
 
+(defun make-read-only ()
+  (toggle-read-only 1))
+
+
+
 (autoload 'archive-extract-hooks "arc-mode")
 
-(add-hook 'archive-extract-hooks 'timvisher/make-read-only)
+(add-hook 'archive-extract-hooks 'make-read-only)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
