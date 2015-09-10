@@ -682,6 +682,7 @@ the backing files."
 (set-face-background 'vertical-border "gray10")
 (add-to-list 'auto-mode-alist '("Rakefile" . ruby-mode))
 (defalias 'yes-or-no-p 'y-or-n-p)
+;; (add-hook 'lisp-mode-hook 'timvisher/turn-on-eldoc)
 (global-set-key (kbd "C-c b i") 'ibuffer-other-window)
 (global-set-key (kbd "C-c b b") 'bury-buffer)
 (global-set-key (kbd "C-c b r") 'revert-buffer)
@@ -724,6 +725,8 @@ the backing files."
 (autoload 'archive-extract-hooks "arc-mode")
 
 (add-hook 'archive-extract-hooks 'make-read-only)
+;; (add-hook 'archive-extract-hooks 'timvisher/make-read-only)
+;; (defun timvisher/make-read-only () (interactive) 'no-op)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -761,3 +764,50 @@ the backing files."
     (progn
       (add-to-list 'load-path "/home/relay/projects/dev-utils/instago/software/go/misc/emacs" t)
       (require 'go-mode-load)))
+
+
+(defun krb-slime-wconn-interactive-eval ()
+  (interactive)
+  (let ((full-expr `(rn.clorine.core/with-connection :relayzone
+                                                     ,(slime-last-expression))))
+
+    (slime-interactive-eval (format "%s" full-expr))))
+
+(defun krb-slime-wconn-inspect ()
+  (interactive)
+  (let ((full-expr `(rn.clorine.core/with-connection :relayzone
+                                                     ,(slime-last-expression))))
+
+    (slime-inspect (format "%s" full-expr))))
+
+(defun krb-slime-interactive-def-expression (var-name expression)
+  (interactive
+   (list
+    (read-string
+     ;; prompt
+     (concat "Var: ")
+     ;; initial-input
+     (save-excursion
+       (backward-sexp 1)
+       (krb-string-trim (slime-last-expression)))
+     ;; history
+     'krb-clojure-interactive-def-expression-hist
+     ;; default-value
+     ""
+     ;; inherit-input-method
+     t)
+    (read-string
+     ;; prompt
+     (concat "Expression: " (krb-string-trim (slime-last-expression)) ": ")
+     ;; initial-input
+     (krb-string-trim (slime-last-expression))
+     ;; history
+     'krb-clojure-set-replay-inspect-expression-hist
+     ;; default-value
+     (krb-string-trim (slime-last-expression))
+     ;; inherit-input-method
+     t)))
+
+  (let ((full-expr `(rn.clorine.core/with-connection :relayzone
+                                                     (def ,var-name ,expression))))
+    (slime-interactive-eval (format "%s" full-expr))))
