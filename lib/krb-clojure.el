@@ -758,8 +758,7 @@ the pre-existing package statements.
        'handle-map-and-vector-destructuring
        (remove-non-symbol-arguments
         (split-string
-         (buffer-substring start (point))
-         " "))))))
+         (buffer-substring start (point))))))))
 
 (defun string/starts-with (s begins)
   "returns non-nil if string S starts with BEGINS.  Else nil."

@@ -766,16 +766,15 @@ the backing files."
       (require 'go-mode-load)))
 
 
-(defun krb-slime-wconn-interactive-eval ()
-  (interactive)
-  (let ((full-expr `(rn.clorine.core/with-connection :relayzone
+(defun krb-slime-wconn-interactive-eval (dbname)
+  (interactive "sdbname: ")
+  (let ((full-expr `(rn.clorine.core/with-connection ,(make-symbol (concat ":" dbname))
                                                      ,(slime-last-expression))))
-
     (slime-interactive-eval (format "%s" full-expr))))
 
-(defun krb-slime-wconn-inspect ()
-  (interactive)
-  (let ((full-expr `(rn.clorine.core/with-connection :relayzone
+(defun krb-slime-wconn-inspect (dbname)
+  (interactive "sdbname: ")
+  (let ((full-expr `(rn.clorine.core/with-connection ,(make-symbol (concat ":" dbname))
                                                      ,(slime-last-expression))))
 
     (slime-inspect (format "%s" full-expr))))
