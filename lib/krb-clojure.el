@@ -779,6 +779,9 @@ the pre-existing package statements.
   (or (string/ends-with elt ":keys")
       (equal ":as" elt)))
 
+(defun keyword-p (elt)
+  (string/starts-with elt ":"))
+
 (defun precedes-prismatic-schema-type-annotation-p (elt)
   (equal ":-" elt))
 
@@ -792,6 +795,7 @@ the pre-existing package statements.
      (or (type-annotation-p elt)
          (ampersand-p elt)
          (destructuring-keyword-p elt)
+         (keyword-p elt)
          (precedes-prismatic-schema-type-annotation-p elt)))
    elts))
 
