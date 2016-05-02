@@ -1,2 +1,2 @@
-(rn.clorine.core/with-connection ${1::relayzone}
-  $0)
+(rn.clorine.core/with-connection ${:`(replace-regexp-in-string (rx (* (any " \t\n")) eos) "" (krb-file-string (concat (krb-clj-find-lein-proj-root-dir) ".db_conn_name")))`}
+  $1)
