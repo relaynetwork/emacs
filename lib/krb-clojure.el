@@ -1042,6 +1042,11 @@ the pre-existing package statements.
   (local-set-key (kbd "C-<f7>") 'krb-clojure-set-replay-inspect-expression)
   (local-set-key [f12]          'rn-symbol-to-def))
 
+;; Midje alignments
+(put-clojure-indent 'fact 1)
+(put-clojure-indent 'facts 1)
+(put-clojure-indent 'against-background 1)
+
 (provide 'krb-clojure)
 ;; end of krb-clojure.el
 
