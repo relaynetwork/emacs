@@ -1,0 +1,12 @@
+#name : ns ...
+# --
+(ns ${1:$(krb-clj-ns-for-file-name (buffer-file-name))}
+  (:require
+   [clj-specs.core                         :as core]
+   [clj-specs.lib.platform-utils           :as utils]
+   [rn-db.core                             :as db]
+   [rn.clorine.core                        :as clorine]
+   [rn-daemon.serialization                :as json]
+   [midje.sweet                            :as m :refer [facts fact against-background]]))
+
+$0
