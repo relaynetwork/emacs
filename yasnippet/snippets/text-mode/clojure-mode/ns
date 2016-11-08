@@ -2,7 +2,7 @@
 # --
 (ns ${1:$(krb-clj-ns-for-file-name (buffer-file-name))}
  (:require 
-   [clojure.tools.logging    :as log]
-   [clj-etl-utils.lang-utils :refer [raise]]))
+  [clojure.tools.logging    :as log]
+  [clj-etl-utils.lang-utils :refer [raise]]))
 
 $0
