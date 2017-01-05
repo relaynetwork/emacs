@@ -7,8 +7,6 @@
    [rn-db.core                   :as db]
    [rn.clorine.core              :as clorine]
    [rn-daemon.serialization      :as json]
-   [midje.sweet                  :as m :refer [facts fact against-background]]))
+   [clojure.test                 :as test :refer [deftest testing is]]))
 
-(against-background [(before :contents (do
-                                         (core/init!)))]
-  (facts "$1"))
+(deftest $1)
