@@ -7,6 +7,13 @@
    [rn-db.core                   :as db]
    [rn.clorine.core              :as clorine]
    [rn-daemon.serialization      :as json]
-   [clojure.test                 :as test :refer [deftest testing is run-tests]]))
+   [clojure.test                 :as test :refer [deftest testing is run-tests use-fixtures]]))
+
+(defn with-initialization
+  [f]
+  (core/init!)
+  (f))
+
+(use-fixtures :once with-initialization)
 
 (deftest $1)
