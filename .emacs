@@ -706,10 +706,11 @@ the backing files."
       (make-directory *krb-emacs-server-file*))
   (set-file-modes *krb-emacs-server-file* #o700)
   (setq server-socket-dir *krb-emacs-server-file*)
-  (autoload 'server-running-p "server")
-  (unless
-      (server-running-p)
-    (server-start)))
+
+  (if (and (fboundp 'server-running-p)
+         (not (server-running-p)))
+   (autoload 'server-running-p "server")
+   (server-start)))
 
 (krb-boostrap-local-eamcs-server)
 
