@@ -1,0 +1,2 @@
+(rn-clj-debug.core/with-env ${env}
+  $0)
