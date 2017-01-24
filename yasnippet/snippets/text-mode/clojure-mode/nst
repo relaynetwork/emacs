@@ -3,10 +3,10 @@
 (ns ${$(krb-clj-ns-for-file-name (buffer-file-name))}
   (:require
    [clj-specs.core               :as core]
-   [clj-specs.lib.platform-utils :as utils]
    [rn-db.core                   :as db]
    [rn.clorine.core              :as clorine]
    [rn-daemon.serialization      :as json]
+   [clj-specs.lib.platform-utils :as utils :refer [wait-for]]
    [clojure.test                 :as test :refer [deftest testing is run-tests use-fixtures test-vars]]))
 
 (defn with-initialization
