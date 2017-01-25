@@ -7,6 +7,7 @@
    [rn.clorine.core              :as clorine]
    [rn-daemon.serialization      :as json]
    [clj-specs.lib.platform-utils :as utils :refer [wait-for]]
+   [taoensso.timbre              :as log]
    [clojure.test                 :as test :refer [deftest testing is run-tests use-fixtures test-vars]]))
 
 (defn with-initialization
