@@ -2,19 +2,15 @@
 # --
 (ns ${$(krb-clj-ns-for-file-name (buffer-file-name))}
   (:require
-   [clj-specs.core               :as core]
-   [rn-db.core                   :as db]
-   [rn.clorine.core              :as clorine]
-   [rn-daemon.serialization      :as json]
-   [clj-specs.lib.platform-utils :as utils :refer [wait-for]]
-   [taoensso.timbre              :as log]
-   [clojure.test                 :as test :refer [deftest testing is run-tests use-fixtures test-vars]]))
+   [taoensso.timbre         :as log]
+   [rn.services-client.core :as svc :refer [call]]
+   [clojure.test            :as test :refer [deftest testing is run-tests use-fixtures test-vars]]))
 
 (defn with-initialization
   [f]
   (core/init!)
   (f))
 
-(use-fixtures :once with-initialization)
+(use-fixtures :each with-initialization)
 
 (deftest $1)
