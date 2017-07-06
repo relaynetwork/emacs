@@ -4,12 +4,19 @@
   (:require
    [taoensso.timbre         :as log]
    [rn.services-client.core :as svc :refer [call]]
+   [treadstone-specs.core   :as test-util :refer [wait-for]]
+   [cheshire.core           :as json]
    [clojure.test            :as test :refer [deftest testing is run-tests use-fixtures test-vars]]))
+
+(defn cleanup
+  []
+  )
 
 (defn with-initialization
   [f]
-  (core/init!)
-  (f))
+  (cleanup)
+  (f)
+  (cleanup))
 
 (use-fixtures :each with-initialization)
 
