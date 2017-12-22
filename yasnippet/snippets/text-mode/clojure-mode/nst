@@ -8,15 +8,31 @@
    [cheshire.core           :as json]
    [clojure.test            :as test :refer [deftest testing is run-tests use-fixtures test-vars]]))
 
+(def test-data
+  {})
+
 (defn cleanup
   []
   )
 
+(defn setup
+  []
+  )
+
+(defn before-test
+  []
+  (cleanup)
+  (setup))
+
+(defn after-test
+  []
+  (cleanup))
+
 (defn with-initialization
   [f]
-  (cleanup)
+  (before-test)
   (f)
-  (cleanup))
+  (after-test))
 
 (use-fixtures :each with-initialization)
 
