@@ -43,6 +43,13 @@
             (add-to-list 'load-path (krb-file path)))
         *krb-lib-dirs*)
 
+;; (add-to-list 'package-archives
+;;              '("melpa" . "https://melpa.org/packages/"))
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
 (defun krb-file-newer (f1 f2)
   (let ((f1-mtime (nth 5 (file-attributes f1)))
         (f2-mtime (nth 5 (file-attributes f2))))
@@ -494,6 +501,7 @@ the backing files."
 
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.ts$" . js2-mode))
 (setq c-syntactic-indentation t)
 (setq c-electric-flag t)
 
