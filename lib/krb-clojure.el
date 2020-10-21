@@ -446,7 +446,7 @@ the pre-existing package statements.
       (load-file local-emacs-file))
     (message "krb-autoswank: swank port file: %s" swank-port-file)
     (when (file-exists-p swank-port-file)
-      (setq swank-port (string-to-int (krb-file-string swank-port-file))))
+      (setq swank-port (string-to-number (krb-file-string swank-port-file))))
 
     (setq slime-protocol-version "20100404")
     (slime-connect "localhost" swank-port)
@@ -468,7 +468,7 @@ the pre-existing package statements.
       (load-file local-emacs-file))
     (message "krb-autoswank: swank port file: %s" swank-port-file)
     (when (file-exists-p swank-port-file)
-      (setq swank-port (string-to-int (krb-file-string swank-port-file))))
+      (setq swank-port (string-to-number (krb-file-string swank-port-file))))
 
     (setq slime-protocol-version "20100404")
     (slime-connect "localhost" swank-port)))
@@ -483,7 +483,7 @@ the pre-existing package statements.
                                      ".swank.remote.port"))
             (swank-port (if (not (file-exists-p swank-port-file))
                             5005
-                          (string-to-int (krb-file-string swank-port-file)))))
+                          (string-to-number (krb-file-string swank-port-file)))))
        (message "%s ? %s => %s"
                 swank-port-file
                 (file-exists-p swank-port-file)
